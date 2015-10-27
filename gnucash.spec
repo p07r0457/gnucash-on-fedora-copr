@@ -1,6 +1,6 @@
 Name: gnucash
 Summary: Finance management application
-Version: 2.6.5
+Version: 2.6.9
 URL: http://gnucash.org/
 Release: 1%{?dist}
 License: GPLv2+
@@ -16,7 +16,9 @@ BuildRequires: gettext, libtool, intltool
 BuildRequires: python-devel, libdbi-devel
 BuildRequires: libdbi-dbd-mysql, libdbi-dbd-pgsql, libdbi-dbd-sqlite
 BuildRequires: libtool-ltdl-devel
+BuildRequires: ktoblzcheck-devel
 BuildRequires: libsecret-devel
+BuildRequires: libappstream-glib
 
 Requires: gnucash-docs >= 2.2.0
 Requires: dconf
@@ -65,6 +67,16 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 
+# Update the screenshot shown in the software center
+#
+# NOTE: It would be *awesome* if this file was pushed upstream.
+#
+# See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
+#
+if appstream-util --help | grep -q replace-screenshots ; then
+  appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/appdata/gnucash.appdata.xml \
+    https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gnucash/a.png
+fi
 %find_lang %{name}
 
 # vfolder desktop file install stuff
@@ -126,6 +138,24 @@ fi
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Wed Oct  7 2015 Bill Nottingham <notting@splat.cc> - 2.6.9-1
+- update to 2.6.9
+
+* Tue Oct  6 2015 Bill Nottingham <notting@splat.cc> - 2.6.8-1
+- update to 2.6.8 (#1266794)
+
+* Mon Jun 29 2015 Bill Nottingham <notting@splat.cc> - 2.6.7-1
+- update to 2.6.7 (#1236432)
+
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Tue Mar 31 2015 Bill Nottingham <notting@splat.cc> - 2.6.6-1
+- update to 2.6.6 (#1207447)
+
+* Mon Mar 30 2015 Richard Hughes <rhughes@redhat.com> - 2.6.5-2
+- Use better AppData screenshots
+
 * Thu Jan  8 2015 Bill Nottingham <notting@splat.cc> - 2.6.5-1
 - update to 2.6.5 (#1176892) which fixes guile cache issues (#1151870) and charts (#1157203)
 
