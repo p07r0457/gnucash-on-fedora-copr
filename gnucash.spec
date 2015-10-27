@@ -18,7 +18,10 @@ BuildRequires: libdbi-dbd-mysql, libdbi-dbd-pgsql, libdbi-dbd-sqlite
 BuildRequires: libtool-ltdl-devel
 BuildRequires: ktoblzcheck-devel
 BuildRequires: libsecret-devel
+%if 0%{?rhel} <= 7
+%else
 BuildRequires: libappstream-glib
+%endif
 
 Requires: gnucash-docs >= 2.2.0
 Requires: dconf
@@ -73,10 +76,14 @@ make install DESTDIR=$RPM_BUILD_ROOT
 #
 # See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
 #
+
+%if 0%{?rhel} <= 7
+%else
 if appstream-util --help | grep -q replace-screenshots ; then
   appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/appdata/gnucash.appdata.xml \
     https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gnucash/a.png
 fi
+%endif
 %find_lang %{name}
 
 # vfolder desktop file install stuff
