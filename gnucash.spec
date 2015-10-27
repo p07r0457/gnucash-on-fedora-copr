@@ -52,7 +52,7 @@ sed -i 's|get_python_lib(0|get_python_lib(1|g' configure
 	--disable-static \
 	--docdir=%{_datadir}/doc/gnucash-%{version} \
 	--enable-python \
-	BUILDING_FROM_SCM=yes
+	BUILDING_FROM_VCS=yes
 
 #sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 #sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
