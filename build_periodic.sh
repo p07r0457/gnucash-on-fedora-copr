@@ -50,9 +50,9 @@ perl -p -e"s#^Version: .*\$#Version: $gc_version#;" \
 
 echo "Build source rpm gnucash-${gc_full_version}.src.rpm"
 rpmbuild -D"%_topdir ${tempdir}" -bs ${tempdir}/SPECS/gnucash.spec
-echo "Upload source rpm to $upload_path"
-scp "${tempdir}/SRPMS/gnucash-${gc_full_version}.src.rpm" "${upload_path}"
+#echo "Upload source rpm to $upload_path"
+#scp "${tempdir}/SRPMS/gnucash-${gc_full_version}.src.rpm" "${upload_path}"
 echo "Start copr build"
 #rpmbuild -D"%_topdir ${tempdir}" --rebuild ${tempdir}/SRPMS/gnucash-${gc_full_version}.src.rpm
-copr-cli build gnucash-maint http://gnucash.kobaltwit.be/copr/gnucash-${gc_full_version}.src.rpm
+copr-cli build gnucash-maint "${tempdir}/SRPMS/gnucash-${gc_full_version}.src.rpm"
 rm -fr "${tempdir}"
