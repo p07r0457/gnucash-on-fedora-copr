@@ -1,8 +1,8 @@
 function make_tmp_dir()
 {
-  tempdir=$(mktemp -d /tmp/gnucash-maint-copr.XXXXXX)
+  tempdir="$(mktemp -d /tmp/${copr_repo}-copr.XXXXXX)"
   pushd "${tempdir}"
-  mkdir -p {BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMSSOURCE}
+  mkdir -p {BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
   mkdir -p RPMS/{i686,x86_64,noarch}
   popd
 }
