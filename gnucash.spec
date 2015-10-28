@@ -18,6 +18,7 @@ BuildRequires: libdbi-dbd-mysql, libdbi-dbd-pgsql, libdbi-dbd-sqlite
 BuildRequires: libtool-ltdl-devel
 BuildRequires: ktoblzcheck-devel
 BuildRequires: libsecret-devel
+BuildRequires: boost-devel
 %if 0%{?rhel} <= 7
 %else
 BuildRequires: libappstream-glib

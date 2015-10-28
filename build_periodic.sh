@@ -5,7 +5,7 @@ code_package=gnucash
 docs_package=gnucash-docs
 code_repodir=../${code_package}-copr
 docs_repodir=../${docs_package}-copr
-refspec=maint
+refspec=master
 copr_repo=${code_package}-${refspec}
 
 if [ -f ./custom.sh ]
