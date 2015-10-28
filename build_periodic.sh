@@ -83,8 +83,12 @@ rm -fr "${tempdir}"
 # Wait for the builds to finish
 code_status="first_loop"
 docs_status="first_loop"
-while [[ "$code_status" != "succeeded" ]] && [[ "$code_status" != "failed" ]] && \
-      [[ "$docs_status" != "succeeded" ]] && [[ "$docs_status" != "failed" ]]
+while ( [[ "$code_status" != "succeeded" ]] && \
+        [[ "$code_status" != "failed"    ]] && \
+        [[ "$code_status" != "skipped"   ]] ) || \
+      ( [[ "$docs_status" != "succeeded" ]] && \
+        [[ "$docs_status" != "failed"    ]] && \
+        [[ "$docs_status" != "skipped"   ]] )
 do
     sleep 60
 
@@ -95,6 +99,8 @@ do
         then
             code_status=failed
         fi
+    else
+        code_status=skipped
     fi
     if [[ $build_docs == yes ]]
     then
@@ -103,6 +109,8 @@ do
         then
             docs_status=failed
         fi
+    else
+        docs_status=skipped
     fi
 done
 
