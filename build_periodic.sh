@@ -8,6 +8,11 @@ docs_repodir=../${docs_package}-copr
 refspec=maint
 copr_repo=${code_package}-${refspec}
 
+if [ -f ./custom.sh ]
+then
+  . ./custom.sh
+fi
+
 . ./functions.sh
 
 make_tmp_dir
